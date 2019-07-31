@@ -254,6 +254,7 @@ void __fastcall TForm1::ChromiumBeforePopup(TObject *Sender, ICefBrowser * const
 		// from loading. Sometimes this happens when you enter a pop-up ad page
 		// that appears several times at a time.
 		if (targetUrl.Pos(L"about:blank") != 0) return;
+
 		windowInfo.external_begin_frame_enabled = true;
 		windowInfo.shared_texture_enabled = true;
 
@@ -450,6 +451,7 @@ void __fastcall TForm1::CreateTabBrowser(TMessage &Message)
 	// when you create a chrome window with a new tab.
 	// To prevent this, you have to set the DefaultUrl value each time
 	// you create a new chrome window.
+	chrome->DefaultUrl = *URL;
 	chrome->Tag = reinterpret_cast<NativeUInt>(tab);
 	chrome->OnAfterCreated = (TOnAfterCreated)&ChromiumAfterCreated;
 	chrome->OnAddressChange = (TOnAddressChange)&ChromiumAddressChange;
