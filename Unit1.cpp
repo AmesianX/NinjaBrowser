@@ -47,7 +47,7 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 	Form1->Tag = reinterpret_cast<NativeUInt>(FullScreenWindow);
 
 	MemoDBG->Clear();
-    MemoDBG->Font->Color = clWhite;
+	MemoDBG->Font->Color = clWhite;
 
 	PanelDevTools->Visible = false;
 	Splitter1->Visible = false;
