@@ -1,5 +1,4 @@
 ## [NinjaBrowser]  
------------------------------------------------------------------------------------------------  
 The NinjaBrowser is an open source browser project based on CEF4DELPHI.  
 - Programmed by AmesianX in powerhacker.net. (amesianx@gmail.com)  
 - https://github.com/amesianx/ninjabrowser.git  
@@ -7,7 +6,6 @@ The NinjaBrowser is an open source browser project based on CEF4DELPHI.
   
   
 ## [Why deploy a NinjaBrowser?]  
------------------------------------------------------------------------------------------------  
 The NinjaBrowser has the most optimized chrome engine options when using libcef  
 through many tests. The browsing speed of the NinjaBrowser is very fast now.  
 I know that there are a number of bugs in other projects using libcef.  
@@ -34,7 +32,6 @@ If someone can solve this problem, please let me know how. (T.T)
   
   
 ## [Left-hand key usage]  
------------------------------------------------------------------------------------------------  
 The NinjaBrowser has a key layout that makes it easy to operate the browser with the left hand.  
   
 Alt+1 : Open debugging window for hidden NinjaBrowser development  
@@ -55,7 +52,6 @@ Exit: If you clear the Exit checkbox, when you click Exit on the window
   
   
 ## [Download and install CEF4Delphi]  
------------------------------------------------------------------------------------------------  
 You must download the CEF4DELPHI source from github.  
 - git clone https://github.com/salvadordf/CEF4Delphi.git  
   
@@ -74,7 +70,6 @@ CEF_CHROMEELF_VERSION_BUILD   = 100;
   
   
 ## [Using the prebuilt version]  
------------------------------------------------------------------------------------------------  
 Download the "pre-built_cef_v.75.0.3770.100.zip" file from the following link:  
 - https://drive.google.com/file/d/1eZp0R4l2DZDQU6K18B1arXjLjjzy6-7r/view?usp=sharing  
   
@@ -83,7 +78,6 @@ executable is located.
   
   
 ## [How to build libcef]  
------------------------------------------------------------------------------------------------  
 If you do not want to use prebuilt libcef, you can build libcef in the following  
 way. But I do not recommend it. Each build takes a half day.  
 If you try to build for the first time, it will take two days.  
@@ -107,7 +101,6 @@ your Windows system's PATH environment variable.
   
   
 ## [How to build to support widevine module]  
------------------------------------------------------------------------------------------------  
 The widevine module is a DRM module. And without this module, you can not see Netflix.  
 You need to modify the following files before running create_cef.bat:  
   
@@ -147,7 +140,6 @@ The contents of the "manifest.json" file should look like this:
   
   
 ## [Development History]  
------------------------------------------------------------------------------------------------  
 I started developing my own browser with the earliest version of DCEF3.  
 I have been developing a NinjaBrowser since 2010 whenever I have free time.  
 The NinjaBrowser is my private browser that uses the Chrome Browser Engine  
@@ -197,7 +189,6 @@ The MS Detours library is my area of expertise and can be easily applied.
   
   
 ## [Why C++ Builder? Not Delphi?]  
------------------------------------------------------------------------------------------------  
 I can use various languages, but I use C/C++ as my main language.  
 The C/C++ language is the easiest.  
 If I joke a bit, it's even easier than Python.  
@@ -248,7 +239,6 @@ This is because there is no commercial purpose yet.
   
   
 ## Is there a security issue when surfing the web with a NinjaBrowser?  
------------------------------------------------------------------------------------------------  
 I am not responsible for your security. So if you are concerned about  
 security, you should not use this browser. However, most hackers do not  
 typically create 32-bit exploits. They just create 64-bit exploits.  
@@ -265,10 +255,8 @@ speed. But do not worry too much you are 32 bits.
   
   
 ## P.S  
------------------------------------------------------------------------------------------------  
 I could not change the comment in the source code to English. I am not good at English.  
 I am studying English. I do not know English. I just use the help of Google Translator.  
 Of course, I manually correct the wrong translation part. So even if there is a wrong  
 translation, please forgive me.  
 Thank you.  
-  
