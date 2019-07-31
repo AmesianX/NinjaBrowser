@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{35F63AE6-9BBC-4AF3-9072-08314279D031}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="NinjaBrowser.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="NinjaBrowser">
+        <MSBuild Projects="NinjaBrowser.cbproj"/>
+    </Target>
+    <Target Name="NinjaBrowser:Clean">
+        <MSBuild Projects="NinjaBrowser.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="NinjaBrowser:Make">
+        <MSBuild Projects="NinjaBrowser.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="NinjaBrowser"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="NinjaBrowser:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="NinjaBrowser:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

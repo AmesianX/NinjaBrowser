@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.727,C:\DevRoot\Projects\NinjaBrowser\Project1PCH1.h=C:\DevRoot\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.485,C:\DevRoot\Projects\NinjaBrowser\Project1PCH1.h=C:\DevRoot\Projects\NinjaBrowser\NinjaBrowserPCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.492,C:\DevRoot\Projects\NinjaBrowser\Project1.cbproj=C:\DevRoot\Projects\NinjaBrowser\NinjaBrowser.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.377,C:\DevRoot\Projects\NinjaBrowser\Project1.cbproj=C:\DevRoot\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.845,C:\DevRoot\Projects\NinjaBrowser\Unit1.dfm=C:\DevRoot\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.121,=C:\DevRoot\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.107,=C:\DevRoot\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.845,C:\DevRoot\Projects\NinjaBrowser\Unit1.h=C:\DevRoot\Projects\Unit1.h</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.845,C:\DevRoot\Projects\NinjaBrowser\Unit1.cpp=C:\DevRoot\Projects\Unit1.cpp</Transaction>
+  </Transactions>
+	<BT_BuildType>Debug</BT_BuildType>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="NinjaBrowser.cpp"/>
+    <File Path="NinjaBrowserPCH1.h"/>
+    <File Path="Unit1.cpp"/>
+    <File Path="Unit1.cpp"/>
+    <File Path="Unit1.dfm"/>
+    <File Path="Unit1.h"/>
+  </ProjectSortOrder>
+</BorlandProject>
