@@ -107,10 +107,9 @@ You need to modify the following files before running create_cef.bat:
 C:\Google\chromium_git\chromium\src\third_party\widevine\cdm\widevine_cdm_version.h  
   
 Added two lines into it:  
-+--------------------------------------------------+  
-| #define WIDEVINE_CDM_AVAILABLE                   |  
-| #define WIDEVINE_CDM_VERSION_STRING 4.10.1440.18 |  
-+--------------------------------------------------+  
+
+#define WIDEVINE_CDM_AVAILABLE
+#define WIDEVINE_CDM_VERSION_STRING 4.10.1440.18
   
 After compilation is finished, you must include the widevinecdm.dll file  
 in the final build package. You can extract the widevine.dll file from  
