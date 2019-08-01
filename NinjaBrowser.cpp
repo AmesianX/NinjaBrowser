@@ -88,7 +88,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-zero-copy", "1");
 		GlobalCEFApp->AddCustomCommandLine("ui-enable-zero-copy", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-download-resumption", "1");
-		GlobalCEFApp->AddCustomCommandLine("enable-smooth-scrolling", "1");
+		GlobalCEFApp->AddCustomCommandLine("enable-smooth-scrolling", "0");
 		// -----------
 		// [WARNING!!]
 		// -----------
