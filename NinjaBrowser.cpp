@@ -67,10 +67,10 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("force-display-list-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-vpx-decode", "3");
 		GlobalCEFApp->AddCustomCommandLine("enable-tcp-fastopen", "1");
-		GlobalCEFApp->AddCustomCommandLine("javascript-harmony", "1");
-		GlobalCEFApp->AddCustomCommandLine("enable-checker-imaging", "1");
-		GlobalCEFApp->AddCustomCommandLine("v8-cache-options", "code");
-		GlobalCEFApp->AddCustomCommandLine("v8-cache-strategies-for-cache-storage", "aggressive");
+		// GlobalCEFApp->AddCustomCommandLine("javascript-harmony", "1");
+		// GlobalCEFApp->AddCustomCommandLine("enable-checker-imaging", "1");
+		// GlobalCEFApp->AddCustomCommandLine("v8-cache-options", "code");
+		// GlobalCEFApp->AddCustomCommandLine("v8-cache-strategies-for-cache-storage", "aggressive");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-video", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-directwrite-for-ui", "1");
