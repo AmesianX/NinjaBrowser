@@ -63,7 +63,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-webgl-image-chromium", "1");
 		GlobalCEFApp->AddCustomCommandLine("ignore-gpu-blacklist", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-experimental-canvas-features", "1");
-		GlobalCEFApp->AddCustomCommandLine("canvas-msaa-sample-count", "2");
+		GlobalCEFApp->AddCustomCommandLine("canvas-msaa-sample-count", "0");
 		GlobalCEFApp->AddCustomCommandLine("force-display-list-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-vpx-decode", "3");
 		GlobalCEFApp->AddCustomCommandLine("enable-tcp-fastopen", "1");
@@ -105,7 +105,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		// in much faster 2D output.
 		GlobalCEFApp->AddCustomCommandLine("disable-gpu-compositing", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-gpu-rasterization", "1");
-		GlobalCEFApp->AddCustomCommandLine("gpu-rasterization-msaa-sample-count", "2");
+		GlobalCEFApp->AddCustomCommandLine("gpu-rasterization-msaa-sample-count", "0");
 		GlobalCEFApp->AddCustomCommandLine("enable-begin-frame-scheduling", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-vulkan", "1");
 		GlobalCEFApp->AddCustomCommandLine("force-gpu-rasterization", "1");
