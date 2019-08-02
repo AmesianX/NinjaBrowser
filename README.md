@@ -40,6 +40,7 @@ Alt+3 : Go to right tab
 Alt+T : Open new tab  
 Alt+W : Close Tab (or Alt+Q)  
 Alt+E : Open Developer Tools  
+Alt+F : Search for text  
 Alt+G : NinjaBrowser Bookmark  
 Alt+R : Reload browser  
   
