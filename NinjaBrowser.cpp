@@ -29,15 +29,16 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->EnableSpeechInput = true;
 		GlobalCEFApp->EnableMediaStream = true;
 		GlobalCEFApp->DisableSafeBrowsing = true;
-		GlobalCEFApp->DisableWebSecurity = false;
+		GlobalCEFApp->MustFreeLibrary = true;
+		GlobalCEFApp->DisableWebSecurity = true;
 		// Do not annotate. high DPI problems may occur.
-		// GlobalCEFApp->EnableHighDPISupport = true;
+		GlobalCEFApp->EnableHighDPISupport = true;
 		// I've given the option with the same effect here, but it does not
 		// seem to be activated.
-		GlobalCEFApp->AddCustomCommandLine("high-dpi-support", "1");
+		// GlobalCEFApp->AddCustomCommandLine("high-dpi-support", "1");
 		// The high DPI problem has been solved. It seems to be due to
 		// the scale factor. It was resolved anyway.
-		GlobalCEFApp->AddCustomCommandLine("force-device-scale-factor", "1");
+		GlobalCEFApp->AddCustomCommandLine("force-device-scale-factor", "1.0");
 		// If WindowlessRenderingEnabled is true, the Viz Service Display
 		// Compositor is disabled. This feature is enabled in official Chrome.
 		// <Pseudo Code of google's chromium sources>
@@ -58,19 +59,25 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->NoSandbox = false;
 		// Turning on the GPU option will speed up your browsing speeds dramatically.
 		GlobalCEFApp->EnableGPU = true;
-		GlobalCEFApp->Locale = "en";
 
+		GlobalCEFApp->Locale = "en";
+		GlobalCEFApp->DisableTabToLinks = true;
+		GlobalCEFApp->DisableSpellChecking = true;
+		GlobalCEFApp->IgnoreCertificateErrors = true;
+		GlobalCEFApp->MultiThreadedMessageLoop = true;
+		GlobalCEFApp->DisableJavascriptCloseWindows = true;
 		GlobalCEFApp->AddCustomCommandLine("enable-webgl-image-chromium", "1");
 		GlobalCEFApp->AddCustomCommandLine("ignore-gpu-blacklist", "1");
-		GlobalCEFApp->AddCustomCommandLine("enable-experimental-canvas-features", "1");
+		GlobalCEFApp->AddCustomCommandLine("enable-experimental-canvas-features", "0");
 		GlobalCEFApp->AddCustomCommandLine("canvas-msaa-sample-count", "0");
-		GlobalCEFApp->AddCustomCommandLine("force-display-list-2d-canvas", "1");
+		GlobalCEFApp->AddCustomCommandLine("force-display-list-2d-canvas", "0");
+		GlobalCEFApp->AddCustomCommandLine("enable-checker-imaging", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-vpx-decode", "3");
 		GlobalCEFApp->AddCustomCommandLine("enable-tcp-fastopen", "1");
+		GlobalCEFApp->AddCustomCommandLine("v8-cache-options", "code");
 		// GlobalCEFApp->AddCustomCommandLine("javascript-harmony", "1");
-		// GlobalCEFApp->AddCustomCommandLine("enable-checker-imaging", "1");
-		// GlobalCEFApp->AddCustomCommandLine("v8-cache-options", "code");
 		// GlobalCEFApp->AddCustomCommandLine("v8-cache-strategies-for-cache-storage", "aggressive");
+		GlobalCEFApp->AddCustomCommandLine("disable-popup-blocking", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-video", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-directwrite-for-ui", "1");
@@ -88,7 +95,12 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-zero-copy", "1");
 		GlobalCEFApp->AddCustomCommandLine("ui-enable-zero-copy", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-download-resumption", "1");
-		GlobalCEFApp->AddCustomCommandLine("enable-smooth-scrolling", "0");
+		// -----------
+		// [WARNING!!]
+		// -----------
+		// If you do not give this option, crashing will occur if you scroll
+		// in heavy load page loading. Seems to be a bug in libcef.
+		GlobalCEFApp->AddCustomCommandLine("enable-smooth-scrolling", "1");
 		// -----------
 		// [WARNING!!]
 		// -----------

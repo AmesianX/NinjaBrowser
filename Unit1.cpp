@@ -268,7 +268,7 @@ void __fastcall TForm1::ChromiumConsoleMessage(TObject *Sender, ICefBrowser * co
 		  DWORD level, const ustring message, const ustring source,
 		  int line, bool Result)
 {
-	TChromium *chrome = reinterpret_cast<TChromium *>(Sender);
+	// TChromium *chrome = reinterpret_cast<TChromium *>(Sender);
 
 	// You can communicate with the NinjaBrowser through JavaScript's
 	// console.log() function. It is very useful for simple communication
@@ -276,16 +276,20 @@ void __fastcall TForm1::ChromiumConsoleMessage(TObject *Sender, ICefBrowser * co
 	// In this case, I made the JavaScript send a message when the window
 	// close is executed. This is because the NinjaBrowser must be prevented
 	// from closing by JavaScript. It is a temporary code and very bad code.
+	// Most recently, the DisableJavascriptCloseWindows option was introduced
+	// in CEF4DELPHI. So let's test this option.
+	/*
 	if (message.Pos("[IoCtlNinjaBrowser:OnClose]") > 0)
 	{
 		tCheckExit = time(0);
 		tCheckExit2 = time(0);
 
-        // Full screen mode should be turned off.
+		// Full screen mode should be turned off.
 		// Otherwise, tab calculation may be incorrect.
 		if (is_FullScreen) FullScreen(false);
 		PostMessage(Handle, CHROMIUM_DESTROY_BROWSER, reinterpret_cast<NativeUInt>(chrome), 0);
 	}
+	*/
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ChromiumLoadStart(TObject *Sender, ICefBrowser * const browser,
@@ -316,10 +320,14 @@ void __fastcall TForm1::ChromiumLoadEnd(TObject *Sender, ICefBrowser * const bro
 	// This is a bad code. Implementation should be changed in the message
 	// processing process.
 	// You should prevent JavaScript from closing the NinjaBrowser.
+	// Most recently, the DisableJavascriptCloseWindows option was introduced
+	// in CEF4DELPHI. So let's test this option.
+	/*
 	frame->ExecuteJavaScript("window.close = function() {\r\n"
 							 "    // Do Not Edit Code Here..\r\n"
 							 "    console.log('[IoCtlNinjaBrowser:OnClose]');\r\n"
 							 "};", "", 0);
+	*/
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::AfterCreatedBrowser(TMessage &Message)
