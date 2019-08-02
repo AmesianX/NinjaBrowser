@@ -61,7 +61,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->EnableGPU = true;
 
 		GlobalCEFApp->Locale = "en";
-		GlobalCEFApp->DisableTabToLinks = true;
+		// GlobalCEFApp->DisableTabToLinks = true;
 		GlobalCEFApp->DisableSpellChecking = true;
 		GlobalCEFApp->IgnoreCertificateErrors = true;
 		GlobalCEFApp->MultiThreadedMessageLoop = true;
@@ -69,14 +69,14 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-webgl-image-chromium", "1");
 		GlobalCEFApp->AddCustomCommandLine("ignore-gpu-blacklist", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-experimental-canvas-features", "0");
-		GlobalCEFApp->AddCustomCommandLine("canvas-msaa-sample-count", "0");
-		GlobalCEFApp->AddCustomCommandLine("force-display-list-2d-canvas", "0");
+		// GlobalCEFApp->AddCustomCommandLine("canvas-msaa-sample-count", "0");
+		GlobalCEFApp->AddCustomCommandLine("force-display-list-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-checker-imaging", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-vpx-decode", "3");
 		GlobalCEFApp->AddCustomCommandLine("enable-tcp-fastopen", "1");
+		GlobalCEFApp->AddCustomCommandLine("javascript-harmony", "1");
 		GlobalCEFApp->AddCustomCommandLine("v8-cache-options", "code");
-		// GlobalCEFApp->AddCustomCommandLine("javascript-harmony", "1");
-		// GlobalCEFApp->AddCustomCommandLine("v8-cache-strategies-for-cache-storage", "aggressive");
+		GlobalCEFApp->AddCustomCommandLine("v8-cache-strategies-for-cache-storage", "aggressive");
 		GlobalCEFApp->AddCustomCommandLine("disable-popup-blocking", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-video", "1");
@@ -88,9 +88,11 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		// If you want to use the "chrome://accessibility" feature, you need
 		// to enable the following options. But this is an option you should
 		// never use. This option creates a huge load on the dome. Some sites
-		// are not browsable due to this option.
-		// Therefore, be sure to turn it off.
-		GlobalCEFApp->AddCustomCommandLine("force-renderer-accessibility", "0");
+		// are not browsable due to this option. Therefore, be sure to turn it
+		// off. This "force-renderer-accessibility" option is not disabled
+		// when set to 0. You should not use it at all.
+		// GlobalCEFApp->AddCustomCommandLine("force-renderer-accessibility", "0");
+
 		GlobalCEFApp->AddCustomCommandLine("enable-native-gpu-memory-buffers", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-zero-copy", "1");
 		GlobalCEFApp->AddCustomCommandLine("ui-enable-zero-copy", "1");
@@ -117,7 +119,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		// in much faster 2D output.
 		GlobalCEFApp->AddCustomCommandLine("disable-gpu-compositing", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-gpu-rasterization", "1");
-		GlobalCEFApp->AddCustomCommandLine("gpu-rasterization-msaa-sample-count", "0");
+		// GlobalCEFApp->AddCustomCommandLine("gpu-rasterization-msaa-sample-count", "0");
 		GlobalCEFApp->AddCustomCommandLine("enable-begin-frame-scheduling", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-vulkan", "1");
 		GlobalCEFApp->AddCustomCommandLine("force-gpu-rasterization", "1");
