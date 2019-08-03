@@ -3,8 +3,28 @@ The NinjaBrowser is an open source browser project based on CEF4DELPHI.
 - Programmed by AmesianX in powerhacker.net. (amesianx@gmail.com)  
 - https://github.com/amesianx/ninjabrowser.git  
 - The NinjaBrowser is not a ninja bra.  
-  
-  
+
+## The prebuilt package has been updated to Google Chrome v.76.0.3809.87. (2019.08.04 06:45 PM)  
+- A bug that did not preview posts on the vBulletin board has been fixed.  
+- filename: "pre-built_cef_v.76.0.3809.87.zip"  
+- https://drive.google.com/file/d/1V5LXOAMdiGEIIW9X-o_47MYNc-cQNWHQ/view  
+
+Download CEF4Delphi from github to the latest version and reinstall it. (libcef.dll version: 76.1.5.0)  
+Then rebuild NinjaBrowser. Now download this prebuilt package and replace it with NinjaBrowser's  
+cef directory.  
+
+To check the version of CEF4Delphi, check the uCEFApplication.pas file for the following:  
+
+CEF_SUPPORTED_VERSION_MAJOR = 76;  
+CEF_SUPPORTED_VERSION_MINOR = 1;  
+CEF_SUPPORTED_VERSION_RELEASE = 5;  
+CEF_SUPPORTED_VERSION_BUILD = 0;  
+
+CEF_CHROMEELF_VERSION_MAJOR = 76;  
+CEF_CHROMEELF_VERSION_MINOR = 0;  
+CEF_CHROMEELF_VERSION_RELEASE = 3809;  
+CEF_CHROMEELF_VERSION_BUILD = 87;  
+
 ## [Why deploy a NinjaBrowser?]  
 The NinjaBrowser has the most optimized chrome engine options when using libcef  
 through many tests. The browsing speed of the NinjaBrowser is very fast now.  
