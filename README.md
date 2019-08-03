@@ -8,6 +8,7 @@ The NinjaBrowser is an open source browser project based on CEF4DELPHI.
 - A bug that did not preview posts on the vBulletin board has been fixed.  
 - filename: "pre-built_cef_v.76.0.3809.87.zip"  
 - https://drive.google.com/file/d/1V5LXOAMdiGEIIW9X-o_47MYNc-cQNWHQ/view  
+- I made the mistake of activating widevine. I'm rebuilding. Do not download it. (I will edit the article again.)  
 
 Download CEF4Delphi from github to the latest version and reinstall it. (libcef.dll version: 76.1.5.0)  
 Then rebuild NinjaBrowser. Now download this prebuilt package and replace it with NinjaBrowser's  
