@@ -77,7 +77,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-2d-canvas", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-accelerated-video", "1");
 		GlobalCEFApp->AddCustomCommandLine("enable-directwrite-for-ui", "1");
-		GlobalCEFApp->AddCustomCommandLine("enable-direc-twrite", "1");
+		GlobalCEFApp->AddCustomCommandLine("enable-directwrite", "1");
 		// -----------
 		// [WARNING!!]
 		// -----------

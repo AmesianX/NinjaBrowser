@@ -121,54 +121,6 @@ void __fastcall TForm1::FormCloseQuery(TObject *Sender, bool &CanClose)
 	ExitBrowser(Sender);
 }
 //---------------------------------------------------------------------------
-void __fastcall TForm1::ChromiumAddressChange(TObject *Sender, ICefBrowser * const browser,
-		  ICefFrame * const frame, const ustring url)
-{
-	TChromium *chrome = reinterpret_cast<TChromium *>(Sender);
-
-	// It's just to more clearly verify the browser pointer.
-	if (chrome->Browser->IsSame(browser))
-	{
-		// If you have a URL lock
-		if (CheckBoxLockURL->Checked) {
-			// Dynamically change the URL in the address bar only if you have
-			// not modified it in the address bar. The reason is to prevent
-			// the input value from being altered because the address is changed
-			// during parameter modification like SQL Injection in URL.
-			if (!EditURL->Focused()) {
-				EditURL->Text = reinterpret_cast<TChromium *>(Sender)->Browser->MainFrame->Url;
-			}
-		} else {
-			// If you do not want to lock, you can just change the URL.
-			EditURL->Text = reinterpret_cast<TChromium *>(Sender)->Browser->MainFrame->Url;
-		}
-	}
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::ChromiumTitleChange(TObject *Sender, ICefBrowser * const browser,
-		  const ustring title)
-{
-	// If CheckBoxPopup is set, it should not be processed in the tab
-	// of the NinjaBrowser. The reason is already annotated.
-	if (CheckBoxPopup->Checked) return;
-
-	TChromium *chrome = reinterpret_cast<TChromium *>(Sender);
-	TTabSheet *tab = reinterpret_cast<TTabSheet *>(chrome->Tag);
-
-	// When TChromium navigates and the page moves, the title changes.
-	// Set the changed value in the caption of the tab each time
-	// the title is changed.
-	if (title.Length() > 10)
-	{
-		UnicodeString retitle = title.SubString(1, 10);
-		tab->Caption = retitle + "...";
-	}
-	else
-	{
-		tab->Caption = title;
-	}
-}
-//---------------------------------------------------------------------------
 void __fastcall TForm1::DestroyTabBrowser(TMessage &Message)
 {
 	// Get the TChromium pointer from the sender of the message.
@@ -225,11 +177,8 @@ void __fastcall TForm1::ChromiumBeforePopup(TObject *Sender, ICefBrowser * const
 {
 	// Chrome will determine its behavior through options such as whether
 	// to open a new window in itself or a tab in the NinjaBrowser.
-
-	// True : This option allows pop-up windows on its own by chrome engine core
-	// False : This option can not pop-up itself. It opens in the NinjaBrowser tab.
 	if (CheckBoxPopup->Checked) {
-		// If about: blank comes in the targetUrl value, you should prevent it
+		// If "about:blank" comes in the targetUrl value, you should prevent it
 		// from loading. Sometimes this happens when you enter a pop-up ad page
 		// that appears several times at a time.
 		if (targetUrl.Pos(L"about:blank") != 0) return;
@@ -243,13 +192,11 @@ void __fastcall TForm1::ChromiumBeforePopup(TObject *Sender, ICefBrowser * const
 
 		EditSearch->Visible = false;
 
+		// True : This option allows pop-up windows on its own by chrome engine core
+		// False : This option can not pop-up itself. It opens in the NinjaBrowser tab.
 		Result = False;
 	}
 	else {
-		// True : This option allows pop-up windows on its own by chrome engine core
-		// False : This option can not pop-up itself. It opens in the NinjaBrowser tab.
-		Result = True;
-
 		// If about: blank comes in the targetUrl value, you should prevent it
 		// from loading. Sometimes this happens when you enter a pop-up ad page
 		// that appears several times at a time.
@@ -258,9 +205,14 @@ void __fastcall TForm1::ChromiumBeforePopup(TObject *Sender, ICefBrowser * const
 		windowInfo.external_begin_frame_enabled = true;
 		windowInfo.shared_texture_enabled = true;
 
-		EditSearch->Visible = false;
 		SendURL = targetUrl;
 		PostMessage(Handle, CHROMIUM_CREATE_BROWSER, reinterpret_cast<NativeUInt>(&SendURL), 0);
+
+		EditSearch->Visible = false;
+
+		// True : This option allows pop-up windows on its own by chrome engine core
+		// False : This option can not pop-up itself. It opens in the NinjaBrowser tab.
+		Result = True;
 	}
 }
 //---------------------------------------------------------------------------
@@ -328,20 +280,6 @@ void __fastcall TForm1::ChromiumLoadEnd(TObject *Sender, ICefBrowser * const bro
 							 "    console.log('[IoCtlNinjaBrowser:OnClose]');\r\n"
 							 "};", "", 0);
 	*/
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::AfterCreatedBrowser(TMessage &Message)
-{
-	// If the CheckBoxPopup is enabled, it should be returned.
-	// This is because the pop-up is not created in the tab.
-	// The chrome engine opens the pop-up window itself.
-	if (CheckBoxPopup->Checked) return;
-
-	TChromium *chrome = reinterpret_cast<TChromium *>(Message.WParam);
-	TTabSheet *tab = reinterpret_cast<TTabSheet *>(chrome->Tag);
-	PageControl1->SelectNextPage(true, true);
-	chrome->SetFocus(true);
-	chrome->LoadURL(tab->Hint);
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::ExitBrowser(TObject *Sender)
@@ -422,6 +360,84 @@ void __fastcall TForm1::ExitBrowser(TObject *Sender)
 	}
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm1::ChromiumAddressChange(TObject *Sender, ICefBrowser * const browser,
+          ICefFrame * const frame, const ustring url)
+{
+    TChromium *chrome = reinterpret_cast<TChromium *>(Sender);
+
+    // MemoDBG->Lines->Add("[+] ChromiumAddressChange: " + chrome->Name);
+
+    // It's just to more clearly verify the browser pointer.
+    if (chrome->IsSameBrowser(browser))
+    {
+        // If you have a URL lock
+        if (CheckBoxLockURL->Checked) {
+            // Dynamically change the URL in the address bar only if you have
+            // not modified it in the address bar. The reason is to prevent
+            // the input value from being altered because the address is changed
+            // during parameter modification like SQL Injection in URL.
+            if (!EditURL->Focused()) {
+                EditURL->Text = reinterpret_cast<TChromium *>(Sender)->Browser->MainFrame->Url;
+            }
+        } else {
+            // If you do not want to lock, you can just change the URL.
+            EditURL->Text = reinterpret_cast<TChromium *>(Sender)->Browser->MainFrame->Url;
+        }
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ChromiumTitleChange(TObject *Sender, ICefBrowser * const browser,
+          const ustring title)
+{
+    // of the NinjaBrowser. The reason is already annotated.
+    TChromium *chrome = reinterpret_cast<TChromium *>(Sender);
+    TTabSheet *tab = reinterpret_cast<TTabSheet *>(chrome->Tag);
+
+    // MemoDBG->Lines->Add("[+] ChromiumTitleChange: " + chrome->Name);
+
+    if (chrome->IsSameBrowser(browser))
+    {
+        // When TChromium navigates and the page moves, the title changes.
+        // Set the changed value in the caption of the tab each time
+        // the title is changed.
+        if (title.Length() > 10)
+        {
+            UnicodeString retitle = title.SubString(1, 10);
+            tab->Caption = retitle + "...";
+        }
+        else
+        {
+            tab->Caption = title;
+        }
+    }
+
+    chrome->Name = "Automatic";
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::AfterCreatedBrowser(TMessage &Message)
+{
+    // This is because the pop-up is not created in the tab.
+    // The chrome engine opens the pop-up window itself.
+    TChromium *chrome = reinterpret_cast<TChromium *>(Message.WParam);
+    TTabSheet *tab = reinterpret_cast<TTabSheet *>(chrome->Tag);
+
+    // MemoDBG->Lines->Add("[+] AfterCreatedBrowser: " + chrome->Name);
+
+    // If the pop-up window is enabled and "Automatic" is selected, tap
+    // processing is disabled. Because the pop-up window is processed
+    // by Chrome itself.
+    if (chrome->Name == "Automatic" && CheckBoxPopup->Checked) {
+        return;
+    }
+
+    // If it is "Automatic" or "Direct", it processes the tab normally.
+    if (chrome->Name == "Automatic" || chrome->Name == "Direct") {
+        PageControl1->SelectNextPage(true, true);
+        chrome->SetFocus(true);
+        chrome->LoadURL(tab->Hint);
+    }
+}
+//---------------------------------------------------------------------------
 void __fastcall TForm1::CreateTabBrowser(TMessage &Message)
 {
 	EditSearch->Visible = false;
@@ -479,6 +495,11 @@ void __fastcall TForm1::CreateTabBrowser(TMessage &Message)
 	chrome->OnBeforeDownload = (TOnBeforeDownload)&ChromiumBeforeDownload;
 	chrome->OnDownloadUpdated = (TOnDownloadUpdated)&ChromiumDownloadUpdated;
 	chrome->CreateBrowser(window, "");
+    // The "Automatic" flag means that the Chrome browser was created automatically.
+    // Example: Link click or pop-up.
+    // The reason for this markup is that tabs behave incorrectly
+    // when opening a popup window.
+    chrome->Name = "Automatic";
 
 	StatusBar1->Panels->Items[0]->Width = 80;
 	StatusBar1->Panels->Items[0]->Text = "Tab Created";
@@ -542,6 +563,11 @@ void __fastcall TForm1::ButtonAddTabBrowserClick(TObject *Sender)
 	chrome->OnBeforeDownload = (TOnBeforeDownload)&ChromiumBeforeDownload;
 	chrome->OnDownloadUpdated = (TOnDownloadUpdated)&ChromiumDownloadUpdated;
 	chrome->CreateBrowser(window, "");
+    // The "Direct" flag means that the Chrome browser was created manually.
+    // Example: Button click or keyboard shortcut.
+    // The reason for this markup is that tabs behave incorrectly
+    // when opening a popup window.
+    chrome->Name = "Direct";
 
 	StatusBar1->Panels->Items[0]->Width = 80;
 	StatusBar1->Panels->Items[0]->Text = "Tab Created";
@@ -909,8 +935,6 @@ void __fastcall TForm1::EditURLKeyDown(TObject *Sender, WORD &Key, TShiftState S
 		}
 	}
 }
-//---------------------------------------------------------------------------
-// EditSearch 에디트 박스에 입력된 값으로 웹 페이지의 텍스트 검색을 시도함.
 //---------------------------------------------------------------------------
 void __fastcall TForm1::EditSearchKeyUp(TObject *Sender, WORD &Key, TShiftState Shift)
 {
