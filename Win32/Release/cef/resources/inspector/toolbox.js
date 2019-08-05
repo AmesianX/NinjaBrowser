@@ -50,6 +50,7 @@ return false;if(condition&&condition.startsWith('!')&&Runtime.queryParam(conditi
 return false;return true;}
 static resolveSourceURL(path){let sourceURL=self.location.href;if(self.location.search)
 sourceURL=sourceURL.replace(self.location.search,'');sourceURL=sourceURL.substring(0,sourceURL.lastIndexOf('/')+1)+path;return'\n/*# sourceURL='+sourceURL+' */';}
+static setL10nCallback(localizationFunction){Runtime._l10nCallback=localizationFunction;}
 useTestBase(){Runtime._remoteBase='http://localhost:8000/inspector-sources/';if(Runtime.queryParam('debugFrontend'))
 Runtime._remoteBase+='debug/';}
 _registerModule(descriptor){const module=new Runtime.Module(this,descriptor);this._modules.push(module);this._modulesMap[descriptor['name']]=module;}
@@ -107,7 +108,8 @@ _createInstance(){const className=this._className||this._factoryName;if(!classNa
 throw new Error('Could not instantiate extension with no class');const constructorFunction=self.eval((className));if(!(constructorFunction instanceof Function))
 throw new Error('Could not instantiate: '+className);if(this._className)
 return this._module._manager.sharedInstance(constructorFunction);return new constructorFunction(this);}
-title(){return this._descriptor['title-'+Runtime._platform]||this._descriptor['title'];}
+title(){const title=this._descriptor['title-'+Runtime._platform]||this._descriptor['title'];if(title&&Runtime._l10nCallback)
+return Runtime._l10nCallback(title);return title;}
 hasContextType(contextType){const contextTypes=this.descriptor().contextTypes;if(!contextTypes)
 return false;for(let i=0;i<contextTypes.length;++i){if(contextType===this._module._manager._resolve(contextTypes[i]))
 return true;}
@@ -132,7 +134,7 @@ cleanedUpExperimentSetting[experimentName]=true;}
 this._setExperimentsSetting(cleanedUpExperimentSetting);}
 _checkExperiment(experimentName){Runtime._assert(this._experimentNames[experimentName],'Unknown experiment '+experimentName);}};Runtime.Experiment=class{constructor(experiments,name,title,hidden){this.name=name;this.title=title;this.hidden=hidden;this._experiments=experiments;}
 isEnabled(){return this._experiments.isEnabled(this.name);}
-setEnabled(enabled){this._experiments.setEnabled(this.name,enabled);}};Runtime.experiments=new Runtime.ExperimentsSupport();Runtime._appStartedPromiseCallback;Runtime._appStartedPromise=new Promise(fulfil=>Runtime._appStartedPromiseCallback=fulfil);Runtime._remoteBase;(function validateRemoteBase(){if(location.href.startsWith('chrome-devtools://devtools/bundled/')&&Runtime.queryParam('remoteBase')){const versionMatch=/\/serve_file\/(@[0-9a-zA-Z]+)\/?$/.exec(Runtime.queryParam('remoteBase'));if(versionMatch)
+setEnabled(enabled){this._experiments.setEnabled(this.name,enabled);}};Runtime.experiments=new Runtime.ExperimentsSupport();Runtime._appStartedPromiseCallback;Runtime._appStartedPromise=new Promise(fulfil=>Runtime._appStartedPromiseCallback=fulfil);Runtime._l10nCallback;Runtime._remoteBase;(function validateRemoteBase(){if(location.href.startsWith('devtools://devtools/bundled/')&&Runtime.queryParam('remoteBase')){const versionMatch=/\/serve_file\/(@[0-9a-zA-Z]+)\/?$/.exec(Runtime.queryParam('remoteBase'));if(versionMatch)
 Runtime._remoteBase=`${location.origin}/remote/serve_file/${versionMatch[1]}/`;}})();function ServicePort(){}
 ServicePort.prototype={setHandlers(messageHandler,closeHandler){},send(message){},close(){}};var runtime;allDescriptors.push(...[{"dependencies":[],"name":"platform"},{"dependencies":["platform","dom_extension"],"name":"toolbox_bootstrap"},{"dependencies":["platform"],"name":"dom_extension"}]);applicationDescriptor={"has_html":true,"modules":[{"type":"autostart","name":"platform"},{"type":"autostart","name":"toolbox_bootstrap"},{"type":"autostart","name":"dom_extension"}]}
 self['Platform']=self['Platform']||{};let ArrayLike;function mod(m,n){return((m%n)+n)%n;}

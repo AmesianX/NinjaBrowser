@@ -43,7 +43,7 @@ Protocol.inspectorBackend.registerCommand("ApplicationCache.getManifestForFrame"
 Protocol.inspectorBackend.registerCommand("Audits.getEncodedResponse", [{"name": "requestId", "type": "string", "optional": false}, {"name": "encoding", "type": "string", "optional": false}, {"name": "quality", "type": "number", "optional": true}, {"name": "sizeOnly", "type": "boolean", "optional": true}], ["body", "originalSize", "encodedSize"], false);
 
 // BackgroundService.
-Protocol.inspectorBackend.registerEnum("BackgroundService.ServiceName", {BackgroundFetch: "backgroundFetch", BackgroundSync: "backgroundSync"});
+Protocol.inspectorBackend.registerEnum("BackgroundService.ServiceName", {BackgroundFetch: "backgroundFetch", BackgroundSync: "backgroundSync", PushMessaging: "pushMessaging", Notifications: "notifications"});
 Protocol.inspectorBackend.registerEvent("BackgroundService.recordingStateChanged", ["isRecording", "service"]);
 Protocol.inspectorBackend.registerEvent("BackgroundService.backgroundServiceEventReceived", ["backgroundServiceEvent"]);
 Protocol.inspectorBackend.registerCommand("BackgroundService.startObserving", [{"name": "service", "type": "string", "optional": false}], [], false);
@@ -53,7 +53,7 @@ Protocol.inspectorBackend.registerCommand("BackgroundService.clearEvents", [{"na
 
 // Browser.
 Protocol.inspectorBackend.registerEnum("Browser.WindowState", {Normal: "normal", Minimized: "minimized", Maximized: "maximized", Fullscreen: "fullscreen"});
-Protocol.inspectorBackend.registerEnum("Browser.PermissionType", {AccessibilityEvents: "accessibilityEvents", AudioCapture: "audioCapture", BackgroundSync: "backgroundSync", BackgroundFetch: "backgroundFetch", ClipboardRead: "clipboardRead", ClipboardWrite: "clipboardWrite", DurableStorage: "durableStorage", Flash: "flash", Geolocation: "geolocation", Midi: "midi", MidiSysex: "midiSysex", Notifications: "notifications", PaymentHandler: "paymentHandler", ProtectedMediaIdentifier: "protectedMediaIdentifier", Sensors: "sensors", VideoCapture: "videoCapture", IdleDetection: "idleDetection"});
+Protocol.inspectorBackend.registerEnum("Browser.PermissionType", {AccessibilityEvents: "accessibilityEvents", AudioCapture: "audioCapture", BackgroundSync: "backgroundSync", BackgroundFetch: "backgroundFetch", ClipboardRead: "clipboardRead", ClipboardWrite: "clipboardWrite", DurableStorage: "durableStorage", Flash: "flash", Geolocation: "geolocation", Midi: "midi", MidiSysex: "midiSysex", Notifications: "notifications", PaymentHandler: "paymentHandler", PeriodicBackgroundSync: "periodicBackgroundSync", ProtectedMediaIdentifier: "protectedMediaIdentifier", Sensors: "sensors", VideoCapture: "videoCapture", IdleDetection: "idleDetection"});
 Protocol.inspectorBackend.registerCommand("Browser.grantPermissions", [{"name": "origin", "type": "string", "optional": false}, {"name": "permissions", "type": "object", "optional": false}, {"name": "browserContextId", "type": "string", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Browser.resetPermissions", [{"name": "browserContextId", "type": "string", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Browser.close", [], [], false);
@@ -108,7 +108,7 @@ Protocol.inspectorBackend.registerCommand("CacheStorage.requestCachedResponse", 
 Protocol.inspectorBackend.registerCommand("CacheStorage.requestEntries", [{"name": "cacheId", "type": "string", "optional": false}, {"name": "skipCount", "type": "number", "optional": false}, {"name": "pageSize", "type": "number", "optional": false}, {"name": "pathFilter", "type": "string", "optional": true}], ["cacheDataEntries", "returnCount"], false);
 
 // Cast.
-Protocol.inspectorBackend.registerEvent("Cast.sinksUpdated", ["sinkNames"]);
+Protocol.inspectorBackend.registerEvent("Cast.sinksUpdated", ["sinks"]);
 Protocol.inspectorBackend.registerEvent("Cast.issueUpdated", ["issueMessage"]);
 Protocol.inspectorBackend.registerCommand("Cast.enable", [{"name": "presentationUrl", "type": "string", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Cast.disable", [], [], false);
@@ -239,6 +239,7 @@ Protocol.inspectorBackend.registerCommand("Emulation.setPageScaleFactor", [{"nam
 Protocol.inspectorBackend.registerCommand("Emulation.setScriptExecutionDisabled", [{"name": "value", "type": "boolean", "optional": false}], [], false);
 Protocol.inspectorBackend.registerCommand("Emulation.setTouchEmulationEnabled", [{"name": "enabled", "type": "boolean", "optional": false}, {"name": "maxTouchPoints", "type": "number", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Emulation.setVirtualTimePolicy", [{"name": "policy", "type": "string", "optional": false}, {"name": "budget", "type": "number", "optional": true}, {"name": "maxVirtualTimeTaskStarvationCount", "type": "number", "optional": true}, {"name": "waitForNavigation", "type": "boolean", "optional": true}, {"name": "initialVirtualTime", "type": "number", "optional": true}], ["virtualTimeTicksBase"], false);
+Protocol.inspectorBackend.registerCommand("Emulation.setTimezoneOverride", [{"name": "timezoneId", "type": "string", "optional": false}], [], false);
 Protocol.inspectorBackend.registerCommand("Emulation.setVisibleSize", [{"name": "width", "type": "number", "optional": false}, {"name": "height", "type": "number", "optional": false}], [], false);
 Protocol.inspectorBackend.registerCommand("Emulation.setUserAgentOverride", [{"name": "userAgent", "type": "string", "optional": false}, {"name": "acceptLanguage", "type": "string", "optional": true}, {"name": "platform", "type": "string", "optional": true}], [], false);
 
@@ -328,7 +329,7 @@ Protocol.inspectorBackend.registerCommand("Memory.getSamplingProfile", [], ["pro
 Protocol.inspectorBackend.registerEnum("Network.ResourceType", {Document: "Document", Stylesheet: "Stylesheet", Image: "Image", Media: "Media", Font: "Font", Script: "Script", TextTrack: "TextTrack", XHR: "XHR", Fetch: "Fetch", EventSource: "EventSource", WebSocket: "WebSocket", Manifest: "Manifest", SignedExchange: "SignedExchange", Ping: "Ping", CSPViolationReport: "CSPViolationReport", Other: "Other"});
 Protocol.inspectorBackend.registerEnum("Network.ErrorReason", {Failed: "Failed", Aborted: "Aborted", TimedOut: "TimedOut", AccessDenied: "AccessDenied", ConnectionClosed: "ConnectionClosed", ConnectionReset: "ConnectionReset", ConnectionRefused: "ConnectionRefused", ConnectionAborted: "ConnectionAborted", ConnectionFailed: "ConnectionFailed", NameNotResolved: "NameNotResolved", InternetDisconnected: "InternetDisconnected", AddressUnreachable: "AddressUnreachable", BlockedByClient: "BlockedByClient", BlockedByResponse: "BlockedByResponse"});
 Protocol.inspectorBackend.registerEnum("Network.ConnectionType", {None: "none", Cellular2g: "cellular2g", Cellular3g: "cellular3g", Cellular4g: "cellular4g", Bluetooth: "bluetooth", Ethernet: "ethernet", Wifi: "wifi", Wimax: "wimax", Other: "other"});
-Protocol.inspectorBackend.registerEnum("Network.CookieSameSite", {Strict: "Strict", Lax: "Lax"});
+Protocol.inspectorBackend.registerEnum("Network.CookieSameSite", {Strict: "Strict", Lax: "Lax", Extended: "Extended", None: "None"});
 Protocol.inspectorBackend.registerEnum("Network.ResourcePriority", {VeryLow: "VeryLow", Low: "Low", Medium: "Medium", High: "High", VeryHigh: "VeryHigh"});
 Protocol.inspectorBackend.registerEnum("Network.RequestReferrerPolicy", {UnsafeUrl: "unsafe-url", NoReferrerWhenDowngrade: "no-referrer-when-downgrade", NoReferrer: "no-referrer", Origin: "origin", OriginWhenCrossOrigin: "origin-when-cross-origin", SameOrigin: "same-origin", StrictOrigin: "strict-origin", StrictOriginWhenCrossOrigin: "strict-origin-when-cross-origin"});
 Protocol.inspectorBackend.registerEnum("Network.CertificateTransparencyCompliance", {Unknown: "unknown", NotCompliant: "not-compliant", Compliant: "compliant"});
@@ -392,7 +393,7 @@ Protocol.inspectorBackend.registerEvent("Overlay.screenshotRequested", ["viewpor
 Protocol.inspectorBackend.registerEvent("Overlay.inspectModeCanceled", []);
 Protocol.inspectorBackend.registerCommand("Overlay.disable", [], [], false);
 Protocol.inspectorBackend.registerCommand("Overlay.enable", [], [], false);
-Protocol.inspectorBackend.registerCommand("Overlay.getHighlightObjectForTest", [{"name": "nodeId", "type": "number", "optional": false}], ["highlight"], false);
+Protocol.inspectorBackend.registerCommand("Overlay.getHighlightObjectForTest", [{"name": "nodeId", "type": "number", "optional": false}, {"name": "includeDistance", "type": "boolean", "optional": true}], ["highlight"], false);
 Protocol.inspectorBackend.registerCommand("Overlay.hideHighlight", [], [], false);
 Protocol.inspectorBackend.registerCommand("Overlay.highlightFrame", [{"name": "frameId", "type": "string", "optional": false}, {"name": "contentColor", "type": "object", "optional": true}, {"name": "contentOutlineColor", "type": "object", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Overlay.highlightNode", [{"name": "highlightConfig", "type": "object", "optional": false}, {"name": "nodeId", "type": "number", "optional": true}, {"name": "backendNodeId", "type": "number", "optional": true}, {"name": "objectId", "type": "string", "optional": true}, {"name": "selector", "type": "string", "optional": true}], [], false);
@@ -422,6 +423,7 @@ Protocol.inspectorBackend.registerEvent("Page.frameRequestedNavigation", ["frame
 Protocol.inspectorBackend.registerEvent("Page.frameScheduledNavigation", ["frameId", "delay", "reason", "url"]);
 Protocol.inspectorBackend.registerEvent("Page.frameStartedLoading", ["frameId"]);
 Protocol.inspectorBackend.registerEvent("Page.frameStoppedLoading", ["frameId"]);
+Protocol.inspectorBackend.registerEvent("Page.downloadWillBegin", ["frameId", "url"]);
 Protocol.inspectorBackend.registerEvent("Page.interstitialHidden", []);
 Protocol.inspectorBackend.registerEvent("Page.interstitialShown", []);
 Protocol.inspectorBackend.registerEvent("Page.javascriptDialogClosed", ["result", "userInput"]);
@@ -556,7 +558,7 @@ Protocol.inspectorBackend.registerCommand("Target.closeTarget", [{"name": "targe
 Protocol.inspectorBackend.registerCommand("Target.exposeDevToolsProtocol", [{"name": "targetId", "type": "string", "optional": false}, {"name": "bindingName", "type": "string", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Target.createBrowserContext", [], ["browserContextId"], false);
 Protocol.inspectorBackend.registerCommand("Target.getBrowserContexts", [], ["browserContextIds"], false);
-Protocol.inspectorBackend.registerCommand("Target.createTarget", [{"name": "url", "type": "string", "optional": false}, {"name": "width", "type": "number", "optional": true}, {"name": "height", "type": "number", "optional": true}, {"name": "browserContextId", "type": "string", "optional": true}, {"name": "enableBeginFrameControl", "type": "boolean", "optional": true}], ["targetId"], false);
+Protocol.inspectorBackend.registerCommand("Target.createTarget", [{"name": "url", "type": "string", "optional": false}, {"name": "width", "type": "number", "optional": true}, {"name": "height", "type": "number", "optional": true}, {"name": "browserContextId", "type": "string", "optional": true}, {"name": "enableBeginFrameControl", "type": "boolean", "optional": true}, {"name": "newWindow", "type": "boolean", "optional": true}, {"name": "background", "type": "boolean", "optional": true}], ["targetId"], false);
 Protocol.inspectorBackend.registerCommand("Target.detachFromTarget", [{"name": "sessionId", "type": "string", "optional": true}, {"name": "targetId", "type": "string", "optional": true}], [], false);
 Protocol.inspectorBackend.registerCommand("Target.disposeBrowserContext", [{"name": "browserContextId", "type": "string", "optional": false}], [], false);
 Protocol.inspectorBackend.registerCommand("Target.getTargetInfo", [{"name": "targetId", "type": "string", "optional": true}], ["targetInfo"], false);
@@ -609,6 +611,10 @@ Protocol.inspectorBackend.registerCommand("WebAudio.enable", [], [], false);
 Protocol.inspectorBackend.registerCommand("WebAudio.disable", [], [], false);
 Protocol.inspectorBackend.registerCommand("WebAudio.getRealtimeData", [{"name": "contextId", "type": "string", "optional": false}], ["realtimeData"], false);
 
+// WebAuthn.
+Protocol.inspectorBackend.registerCommand("WebAuthn.enable", [], [], false);
+Protocol.inspectorBackend.registerCommand("WebAuthn.disable", [], [], false);
+
 // Debugger.
 Protocol.inspectorBackend.registerEnum("Debugger.ScopeType", {Global: "global", Local: "local", With: "with", Closure: "closure", Catch: "catch", Block: "block", Script: "script", Eval: "eval", Module: "module"});
 Protocol.inspectorBackend.registerEnum("Debugger.BreakLocationType", {DebuggerStatement: "debuggerStatement", Call: "call", Return: "return"});
@@ -634,6 +640,7 @@ Protocol.inspectorBackend.registerCommand("Debugger.setAsyncCallStackDepth", [{"
 Protocol.inspectorBackend.registerCommand("Debugger.setBlackboxPatterns", [{"name": "patterns", "type": "object", "optional": false}], [], false);
 Protocol.inspectorBackend.registerCommand("Debugger.setBlackboxedRanges", [{"name": "scriptId", "type": "string", "optional": false}, {"name": "positions", "type": "object", "optional": false}], [], false);
 Protocol.inspectorBackend.registerCommand("Debugger.setBreakpoint", [{"name": "location", "type": "object", "optional": false}, {"name": "condition", "type": "string", "optional": true}], ["breakpointId", "actualLocation"], false);
+Protocol.inspectorBackend.registerCommand("Debugger.setInstrumentationBreakpoint", [{"name": "instrumentation", "type": "string", "optional": false}], ["breakpointId"], false);
 Protocol.inspectorBackend.registerCommand("Debugger.setBreakpointByUrl", [{"name": "lineNumber", "type": "number", "optional": false}, {"name": "url", "type": "string", "optional": true}, {"name": "urlRegex", "type": "string", "optional": true}, {"name": "scriptHash", "type": "string", "optional": true}, {"name": "columnNumber", "type": "number", "optional": true}, {"name": "condition", "type": "string", "optional": true}], ["breakpointId", "locations"], false);
 Protocol.inspectorBackend.registerCommand("Debugger.setBreakpointOnFunctionCall", [{"name": "objectId", "type": "string", "optional": false}, {"name": "condition", "type": "string", "optional": true}], ["breakpointId"], false);
 Protocol.inspectorBackend.registerCommand("Debugger.setBreakpointsActive", [{"name": "active", "type": "boolean", "optional": false}], [], false);

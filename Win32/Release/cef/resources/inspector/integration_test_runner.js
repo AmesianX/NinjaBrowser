@@ -21,6 +21,8 @@ return;return promise;};TestRunner.showPanel=function(panel){return UI.viewManag
 return;const wrapThis=this;try{return func.apply(wrapThis,arguments);}catch(e){TestRunner.addResult('Exception while running: '+func+'\n'+(e.stack||e));if(onexception)
 TestRunner.safeWrap(onexception)();else
 TestRunner.completeTest();}}
+return result;};TestRunner.safeAsyncWrap=function(func){async function result(){if(!func)
+return;const wrapThis=this;try{return await func.apply(wrapThis,arguments);}catch(e){TestRunner.addResult('Exception while running: '+func+'\n'+(e.stack||e));TestRunner.completeTest();}}
 return result;};TestRunner.textContentWithLineBreaks=function(node){function padding(currentNode){let result=0;while(currentNode&&currentNode!==node){if(currentNode.nodeName==='OL'&&!(currentNode.classList&&currentNode.classList.contains('object-properties-section')))
 ++result;currentNode=currentNode.parentNode;}
 return Array(result*4+1).join(' ');}
@@ -118,7 +120,8 @@ TestRunner.addResult('FAILED: '+(message?message+': ':'')+a+' < '+b);};TestRunne
 oldCallback();callback();}
 TestRunner._pageLoadedCallback=TestRunner.safeWrap(chainedCallback);};TestRunner.runTestSuite=function(testSuite){const testSuiteTests=testSuite.slice();function runner(){if(!testSuiteTests.length){TestRunner.completeTest();return;}
 const nextTest=testSuiteTests.shift();TestRunner.addResult('');TestRunner.addResult('Running: '+/function\s([^(]*)/.exec(nextTest)[1]);TestRunner.safeWrap(nextTest)(runner);}
-runner();};TestRunner.assertEquals=function(expected,found,message){if(expected===found)
+runner();};TestRunner.runAsyncTestSuite=async function(testSuite){for(const nextTest of testSuite){TestRunner.addResult('');TestRunner.addResult('Running: '+/function\s([^(]*)/.exec(nextTest)[1]);await TestRunner.safeAsyncWrap(nextTest)();}
+TestRunner.completeTest();};TestRunner.assertEquals=function(expected,found,message){if(expected===found)
 return;let error;if(message)
 error='Failure ('+message+'):';else
 error='Failure:';throw new Error(error+' expected <'+expected+'> found <'+found+'>');};TestRunner.assertTrue=function(found,message){TestRunner.assertEquals(true,!!found,message);};TestRunner.override=function(receiver,methodName,override,opt_sticky){override=TestRunner.safeWrap(override);const original=receiver[methodName];if(typeof original!=='function')
