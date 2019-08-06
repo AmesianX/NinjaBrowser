@@ -8,7 +8,7 @@ The NinjaBrowser is an open source browser project based on CEF4DELPHI.
 - A bug that did not preview posts on the vBulletin board has been fixed.  
 - filename: "pre-built_cef_v.76.0.3809.87.zip"  
 - https://drive.google.com/file/d/1nK3ZEFQhmrMqEy9bKKRvIDB2PzJTvjds/view?usp=sharing  
-- (I do not keep copyright. Because I do not profit from this. It is rather time-consuming. So don't limit me to this problem.)  
+- (I do not keep copyright. Because I do not profit from this NinjaBrowser. It is rather time-consuming. So don't limit me to this problem.)  
 - Those who have been downloaded too quickly just download the ninja browser source code again and build it.  
   
 Download CEF4Delphi from github to the latest version and reinstall it. (libcef.dll version: 76.1.5.0)  
