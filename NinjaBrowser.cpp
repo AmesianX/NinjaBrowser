@@ -121,6 +121,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-begin-frame-scheduling", "1");
 		GlobalCEFApp->AddCustomCommandLine("gpu-rasterization-msaa-sample-count", "0");
 		GlobalCEFApp->AddCustomCommandLine("flag-switches-end", "1");
+		GlobalCEFApp->DisableFeatures = "NetworkService,OutOfBlinkCors";
 
 		__try {
 
