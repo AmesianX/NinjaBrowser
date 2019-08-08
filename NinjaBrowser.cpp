@@ -26,6 +26,10 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->DeleteCache = true;
 		GlobalCEFApp->DeleteCookies = true;
 		GlobalCEFApp->FlashEnabled = true;
+		GlobalCEFApp->CustomFlashPath = "cef\\flash";
+		// GlobalCEFApp->AddCustomCommandLine("ppapi-flash-path", ".\\cef\\flash");
+		// GlobalCEFApp->AddCustomCommandLine("ppapi-flash-version", "32.0.0.223");
+
 		GlobalCEFApp->EnableSpeechInput = true;
 		GlobalCEFApp->EnableMediaStream = true;
 		// The high DPI problem has been solved. It seems to be due to
@@ -121,6 +125,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		GlobalCEFApp->AddCustomCommandLine("enable-begin-frame-scheduling", "1");
 		GlobalCEFApp->AddCustomCommandLine("gpu-rasterization-msaa-sample-count", "0");
 		GlobalCEFApp->AddCustomCommandLine("flag-switches-end", "1");
+		GlobalCEFApp->DisableFeatures = "NetworkService,OutOfBlinkCors";
 
 		__try {
 
